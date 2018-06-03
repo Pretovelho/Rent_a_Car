@@ -170,17 +170,20 @@ int inicioAplicacao(){
 	printf("9- Sair.\n");
 	
 	char opcao;
+
 	scanf(" %c",&opcao); // espaço em branco entre a aspa e caractere %c para o scanf desconsiderar enter e espaços em branco.	
-		
-	if(isdigit(opcao)==0)  {
+
+if(opcao!='1'&&opcao!='2'&&opcao!='3'&&opcao!='4'&&opcao!='9')  {
 		printf("Opcao invalida.Tente novamente.\n\n");	//Caso o usuário digite letra o app não se perca no fluxo.
 		return 0;
-	}	
-	
+	}
+
+
 	printf("\n\n");
 		
 	return opcao - 48; // Convertendo um caracter char para int	(subtraindo seu valor decimal por 48, chegamos no valor numerico.)
 }
+
 
 ///////////////////////////funções de busca ///////////////////////
 
