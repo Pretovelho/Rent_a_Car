@@ -368,6 +368,7 @@ tbDiarias cadastrarDiaria(){
 	tbCarros *auxCarro = NULL;
 	int cod;
 	
+	
 	do{
 	
 		printf("Digite o codigo do Cliente.\n");
@@ -383,8 +384,28 @@ tbDiarias cadastrarDiaria(){
 
     diaria.cliente = *auxCliente;
     
-	printf("Digite o total de diarias.\n");
+	printf("Digite o total de diarias.\n");                   /////Adicionar if nessa linha
 	scanf("%d",&diaria.qtdDiaria);
+	
+	if (diaria.qtdDiaria >= 5){
+	printf("Cliente fara uso da diaria extra?\n1 - Sim\n2 - nao\n\n");
+	int extra;
+	scanf(" %i",&extra);
+	
+			while (extra!=1 && extra!=2){
+				printf(">>>>>>Opcao invalida. Tente novamente.<<<<<<<<\n\n\n1 - Sim\n2 - nao\n\n");
+				scanf(" %i",&extra);
+				}
+				
+		if(extra==1){
+		diaria.qtdDiaria++;
+		}
+		
+			
+	}
+	
+	
+	
     
     do{
 		
@@ -512,7 +533,7 @@ void subMenuCliente(){
 		scanf(" %c",&opcao); 
 		
 		if(isdigit(opcao)!=1 && isdigit(opcao)!=2)  {
-			printf(">>>>>>Opcao invalida.Tente novamente.<<<<<<<<\n\n\n");
+			printf(">>>>>>Opcao invalida. Tente novamente.<<<<<<<<\n\n\n");
 		}
 	
 		switch(opcao - 48){
@@ -680,7 +701,7 @@ void subMenuDiarias(){
 		scanf(" %c",&opcao); 
 			
 		if(isdigit(opcao)!=1 && isdigit(opcao)!=2)  {
-			printf(">>>>>>Opcao invalida.Tente novamente.<<<<<<<<\n\n\n");
+			printf(">>>>>>Opcao invalida. Tente novamente.<<<<<<<<\n\n\n");
 		}
 		
 		switch(opcao - 48){	
