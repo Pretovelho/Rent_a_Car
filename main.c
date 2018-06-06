@@ -1,11 +1,8 @@
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#include <ctime>
-
 
 #define CARROS 1
 #define CLIENTE 2
@@ -16,6 +13,9 @@
 #define DESC_IDOSO 10
 #define DESC_EMPRESA 5
 #define SEGUNDOS 3600;
+
+typedef int bool;
+enum { false, true};
 
 typedef struct Cliente tbClientes;
 struct Cliente {
@@ -33,13 +33,13 @@ static tbClientes * clientes;
 typedef struct Carro tbCarros;
 struct Carro {
 	int cod;
-   char nome[30] ;
-   char placa[10];
-   char cor[15];
-   double vlrDiaria;
-   bool disponivel;
-   struct tm*dtDevolucao;
-   tbCarros *prox;
+	char nome[30] ;
+	char placa[10];
+	char cor[15];
+	double vlrDiaria;
+	bool disponivel;
+	struct tm*dtDevolucao;
+	tbCarros *prox;
 };
 
 static tbCarros * carros;
@@ -48,8 +48,8 @@ typedef struct Diaria tbDiarias;
 struct Diaria {
    int qtdDiaria ;
    double valorTotal;
-   Cliente cliente;
-   Carro carro;
+   tbClientes cliente;
+   tbCarros carro;
    struct tm dataRetirada;
    struct tm* dtDevolucao;
    bool devolvido;
@@ -303,8 +303,8 @@ tbClientes cadastrarCliente(){
     return client;
 }
 ////////////////////// DIARIAS ////////////////////////////////////////
-
-void mostrarHora(tm* hora){
+// TODO WILLIAM
+void mostrarHora(struct tm* hora){
 	
 	int _hora = hora->tm_hour;
 	int min  = hora->tm_min;
@@ -314,7 +314,7 @@ void mostrarHora(tm* hora){
 	
 }
 
-void mostrarHora(tm hora){
+void mostrarHoraSemPonteiro(struct tm hora){
 	
 	int _hora = hora.tm_hour;
 	int min  = hora.tm_min;
@@ -325,7 +325,7 @@ void mostrarHora(tm hora){
 }
 
    
-void mostrarData(tm* data){
+void mostrarData(struct tm* data){
   
 	int dia = data->tm_mday;
 	int mes = data->tm_mon + 1;
@@ -335,7 +335,7 @@ void mostrarData(tm* data){
   
 }
 
-void mostrarData(tm data){
+void mostrarDataSemPonteiro(struct tm data){
   
 	int dia = data.tm_mday;
 	int mes = data.tm_mon + 1;
@@ -345,12 +345,13 @@ void mostrarData(tm data){
   
 }
 
+
 void imprimeDiaria(tbDiarias* diaria){
 	
 	printf("Data retirada: ");
-	mostrarData(diaria->dataRetirada);
+	mostrarDataSemPonteiro(diaria->dataRetirada);
 	printf("Hora retirada: ");
-	mostrarHora(diaria->dataRetirada);
+	mostrarHoraSemPonteiro(diaria->dataRetirada);
 	printf("Placa do Carro: %s\n",diaria->carro.placa);
 	printf("Cliente: %s\n",diaria->cliente.nome);
 	printf("Data devolucao: ");
@@ -360,6 +361,7 @@ void imprimeDiaria(tbDiarias* diaria){
 	printf("\n\n");     
 	
 }
+
 
 tbDiarias cadastrarDiaria(){	
 	
