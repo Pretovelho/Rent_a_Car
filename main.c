@@ -362,7 +362,7 @@ void imprimeDiaria(tbDiarias* diaria){
 	
 }
 
-
+char extra = '0';
 tbDiarias cadastrarDiaria(){	
 	
 	tbDiarias diaria;
@@ -386,29 +386,28 @@ tbDiarias cadastrarDiaria(){
 
     diaria.cliente = *auxCliente;
     
-	printf("Digite o total de diarias.\n");                   /////Adicionar if nessa linha
+	printf("Digite o total de diarias.\n");
 	scanf("%d",&diaria.qtdDiaria);
 	
-	if (diaria.qtdDiaria >= 5){
+	if (diaria.qtdDiaria >= 5){											//Verifica a utilização de diária extra - by JEFERSON
 	printf("Cliente fara uso da diaria extra?\n1 - Sim\n2 - nao\n\n");
-	int extra;
-	scanf(" %i",&extra);
+
+	scanf(" %c",&extra);
 	
-			while (extra!=1 && extra!=2){
+			while (extra!='1' && extra!='2'){
 				printf(">>>>>>Opcao invalida. Tente novamente.<<<<<<<<\n\n\n1 - Sim\n2 - nao\n\n");
-				scanf(" %i",&extra);
+				scanf(" %c",&extra);
+				
+				
+				
 				}
 				
-		if(extra==1){
+		if(extra=='1'){
 		diaria.qtdDiaria++;
 		}
-		
-			
 	}
 	
-	
-	
-    
+
     do{
 		
 		printf("Digite o codigo do carro.\n");
@@ -427,12 +426,24 @@ tbDiarias cadastrarDiaria(){
 	diaria.carro = *auxCarro;
 	
 	double value = auxCarro->vlrDiaria;	
-	diaria.valorTotal = value * diaria.qtdDiaria; ///calcular desconto.
+	
+	if(extra=='1'){												 ///calcular valor bruto da diária com diaria extra - by JEFERSON.
+	diaria.valorTotal = value * (diaria.qtdDiaria - 1);
+	}
+	
+	if(extra=='2'|extra=='0'){ 									///calcular valor bruto da diária sem diaria extra - by JEFERSON.
+	diaria.valorTotal = value * diaria.qtdDiaria; 
+	}
+	
+	extra='0';
 
+		
 	if(diaria.cliente.idade >=60){
 		diaria.valorTotal = diaria.valorTotal - ((diaria.valorTotal * DESC_IDOSO)/100);
 	}
 	
+	
+		
 	if(diaria.cliente.tpPessoa == 2){
 		diaria.valorTotal = diaria.valorTotal - ((diaria.valorTotal * DESC_EMPRESA)/100);
 	}
